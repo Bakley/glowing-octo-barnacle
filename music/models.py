@@ -18,7 +18,7 @@ class Album(models.Model):
     album_logo = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.Title
+        return self.album_title
 
 
 class Song(models.Model):
