@@ -11,11 +11,11 @@ class Musician(models.Model):
 
 class Album(models.Model):
     full_name = models.ForeignKey(Musician, on_delete=models.CASCADE)
-    artist = models.CharField(max_length=50)
-    title = models.CharField(max_length=50)
+    artist_name = models.CharField(max_length=50)
+    album_title = models.CharField(max_length=50)
     genre = models.CharField(max_length=50)
     released_date = models.DateField()
-    Logo = models.CharField(max_length=50)
+    album_logo = models.CharField(max_length=50)
 
     def __str__(self):
         return self.Title
