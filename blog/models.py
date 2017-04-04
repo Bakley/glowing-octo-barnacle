@@ -1,12 +1,12 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 
 # Create your models here.
 
 class PublishedManager(models.Manager):
-
     def get_queryset(self):
         return super(PublishedManager, self).get_queryset().filter(status='published')
 
@@ -32,7 +32,17 @@ class Post(models.Model):
     published = PublishedManager()
 
     class Meta:
-        ordering = ('-publish', )
+        ordering = ('-publish',)
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('blog:post_details',
+                       args=[
+                           self.publish.year,
+                           self.publish.strftime('%m'),
+                           # using the strftime() function to build the URL using month and day with leading zeros
+                           self.publish.strftime('%d'),
+                           self.slug,
+                       ])
