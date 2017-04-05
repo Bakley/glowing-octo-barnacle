@@ -4,13 +4,17 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
 
-# Create your models here.
-
+# First, define the Manager subclass.
 class PublishedManager(models.Manager):
+    """
+    because get_queryset() returns a QuerySet object, you can use filter(), exclude() and all the other QuerySet 
+    methods on it.
+    """
     def get_queryset(self):
         return super(PublishedManager, self).get_queryset().filter(status='published')
 
 
+# Then hook it into the model explicitly.
 class Post(models.Model):
     STATUS_CHOICE = (
         ('draft', 'Draft'),
